@@ -1,8 +1,20 @@
-page =('<div id="bin"><div id="content" class="width960">'
-'<div class="google float-left"><a href="http://www.google.com">')
+import sys
+import requests
+import os
+from bs4 import BeautifulSoup
 
-first_link = page.find('<a href=')
-start_quote = page.find('"',first_link)
-end_quote = page.find('"',start_quote+1)
-url = page[start_quote+1:end_quote]
-print (url)
+
+r = requests.get('http://www.imdb.com/title/tt0111161/')
+
+b = BeautifulSoup(r.text)
+b.find_all(name='span', attrs={'class':'itemprop', 'itemprop':'name'})    # too many results
+x = b.find_all(name='span', attrs={'class':'itemprop', 'itemprop':'name'})    # too many results
+print(x)
+print("******************")
+b.find(name='span', attrs={'class':'itemprop', 'itemprop':'name'}) # just get the first)
+y = b.find(name='span', attrs={'class':'itemprop', 'itemprop':'name'})# just get the first
+print(y.text)
+print("**************************************")
+az = float(b.find(name='span', attrs={'itemprop':'ratingValue'}).text)
+print(az)
+print("*****************")
